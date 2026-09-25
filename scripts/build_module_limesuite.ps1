@@ -8,8 +8,8 @@ $LIMESUITE_TARGET="$CS_TARGET/limesuite"
 $LIMESUITE_INSTALL="$CS_INSTALL/limesuite"
 if (-not ($LIMESUITE_TARGET | Test-Path)) {
     $null=New-Item $LIMESUITE_TARGET -ItemType Directory
+    Add-MissingInclude $LIMESUITE_SOURCES 'std::chrono' '#include <chrono>'
     cmake -B $LIMESUITE_TARGET -G $CS_GENERATOR -A $CS_BUILD_ARCH $LIMESUITE_SOURCES `
-        -DCMAKE_CXX_FLAGS_INIT="/FIchrono" `
         -DCMAKE_INSTALL_PREFIX:PATH="$SOAPY_SDR_INSTALL" `
         -DCMAKE_PREFIX_PATH:PATH="$SOAPY_SDR_INSTALL"        
     cmake --build $LIMESUITE_TARGET --config $CS_BUILD_TYPE --target install
