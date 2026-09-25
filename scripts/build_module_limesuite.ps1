@@ -1,7 +1,7 @@
 $LIMESUITE_SOURCES="$CS_SOURCES/limesuite"
 
 if (-not ($LIMESUITE_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/myriadrf/LimeSuite $LIMESUITE_SOURCES    
+    Get-PinnedSource https://github.com/myriadrf/LimeSuite $LIMESUITE_SOURCES
 }
 
 $LIMESUITE_TARGET="$CS_TARGET/limesuite"

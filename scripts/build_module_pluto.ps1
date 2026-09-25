@@ -23,7 +23,7 @@ Copy-Item -Path "$LIBIIO_INSTALL/bin/*.dll" -Destination "$CS_INSTALL/SoapySDR/b
 
 $LIBAD_SOURCES="$CS_SOURCES/libad9361-iio"
 if (-not ($LIBAD_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/analogdevicesinc/libad9361-iio $LIBAD_SOURCES
+    Get-PinnedSource https://github.com/analogdevicesinc/libad9361-iio $LIBAD_SOURCES
 }
 
 $LIBAD_TARGET="$CS_TARGET/libad9361-iio"
@@ -43,7 +43,7 @@ Copy-Item -Path "$LIBAD_INSTALL/bin/*.dll" -Destination "$CS_INSTALL/SoapySDR/bi
 
 $SOAPY_PLUTOSDR_SOURCES="$CS_SOURCES/SoapyPlutoSDR"
 if (-not ($SOAPY_PLUTOSDR_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/pothosware/SoapyPlutoSDR $SOAPY_PLUTOSDR_SOURCES
+    Get-PinnedSource https://github.com/pothosware/SoapyPlutoSDR $SOAPY_PLUTOSDR_SOURCES
 }
 
 $SOAPY_PLUTOSDR_TARGET="$CS_TARGET/SoapyPlutoSDR"
