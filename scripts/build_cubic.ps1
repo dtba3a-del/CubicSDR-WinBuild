@@ -1,7 +1,12 @@
 
 $CUBICSDR_SOURCES="$CS_SOURCES/CubicSDR"
+$CUBICSDR_REPO = if ($env:CUBICSDR_REPO) { $env:CUBICSDR_REPO } else { "https://github.com/cjcliffe/CubicSDR" }
 if (-not ($CUBICSDR_SOURCES | Test-Path)) {
-    git clone https://github.com/cjcliffe/CubicSDR $CUBICSDR_SOURCES
+    if ($env:CUBICSDR_REF) {
+        git clone --depth 1 -b $env:CUBICSDR_REF $CUBICSDR_REPO $CUBICSDR_SOURCES
+    } else {
+        git clone $CUBICSDR_REPO $CUBICSDR_SOURCES
+    }
 }
 
 $CUBICSDR_TARGET="$CS_TARGET/CubicSDR"
