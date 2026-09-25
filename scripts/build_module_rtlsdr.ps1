@@ -2,7 +2,7 @@ $RTLSDR_SOURCES="$CS_SOURCES/librtlsdr"
 if (-not ($RTLSDR_SOURCES | Test-Path)) {
     # git clone --depth 1 https://github.com/librtlsdr/librtlsdr $RTLSDR_SOURCES    
     # git clone --depth 1 https://github.com/steve-m/librtlsdr $RTLSDR_SOURCES
-    git clone --depth 1 https://github.com/rtlsdrblog/rtl-sdr-blog $RTLSDR_SOURCES
+    Get-PinnedSource https://github.com/rtlsdrblog/rtl-sdr-blog $RTLSDR_SOURCES
 }
 
 $RTLSDR_TARGET="$CS_TARGET/librtlsdr"
@@ -26,7 +26,7 @@ Copy-Item -Path "$RTLSDR_INSTALL/bin/*.dll" -Destination "$CS_INSTALL/SoapySDR/b
 
 $SOAPY_RTLSDR_SOURCES="$CS_SOURCES/SoapyRTLSDR"
 if (-not ($SOAPY_RTLSDR_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/pothosware/SoapyRTLSDR $SOAPY_RTLSDR_SOURCES
+    Get-PinnedSource https://github.com/pothosware/SoapyRTLSDR $SOAPY_RTLSDR_SOURCES
 }
 
 

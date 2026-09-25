@@ -1,7 +1,7 @@
 
 $SOAPY_REMOTE_SOURCES="$CS_SOURCES/SoapyRemote"
 if (-not ($SOAPY_REMOTE_SOURCES | Test-Path)) {
-    git clone https://github.com/pothosware/SoapyRemote $SOAPY_REMOTE_SOURCES
+    Get-PinnedSource https://github.com/pothosware/SoapyRemote $SOAPY_REMOTE_SOURCES
 }
 
 $SOAPY_REMOTE_TARGET="$CS_TARGET/SoapyRemote"

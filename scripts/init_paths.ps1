@@ -27,3 +27,12 @@ if (-not ($SZ_PATH | Test-Path)) {
 }
 $SZ_CMD="$SZ_PATH\7z.exe"
 Write-Host "`t7-Zip Path: $SZ_CMD"
+# Upstream module repos are cloned at the last commit before this date, so the
+# build scripts keep working as those projects change (override with CS_PIN_DATE).
+$CS_PIN_DATE = if ($env:CS_PIN_DATE) { $env:CS_PIN_DATE } else { "2024-04-12" }
+Write-Host "`tSource pin date: $CS_PIN_DATE"
+function Get-PinnedSource([string]$url, [string]$dir) {
+    git clone --filter=blob:none $url $dir
+    $rev = git -C $dir rev-list -1 --before="$CS_PIN_DATE" HEAD
+    if ($rev) { git -C $dir -c advice.detachedHead=false checkout $rev }
+}

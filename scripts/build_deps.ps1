@@ -10,7 +10,7 @@ switch ($CS_BUILD_ARCH) {
 $LIBUSB_SOURCES="$CS_DEPS/libusb"
 $LIBUSB_PROJECT="$LIBUSB_SOURCES/msvc/libusb.sln"
 if (-not ($LIBUSB_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/libusb/libusb $LIBUSB_SOURCES
+    Get-PinnedSource https://github.com/libusb/libusb $LIBUSB_SOURCES
     msbuild $LIBUSB_PROJECT /property:Configuration=$CS_BUILD_TYPE /property:Platform=$CS_BUILD_ARCH
 }
 $LIBUSB_LIBRARIES="$CS_DEPS/libusb/build/v143/$CS_BUILD_ARCH/$CS_BUILD_TYPE/dll/libusb-1.0.lib"

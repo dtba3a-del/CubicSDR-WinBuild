@@ -28,7 +28,7 @@ Copy-Item -Path "$UHD_INSTALL/bin/*.dll" -Destination "$CS_INSTALL/SoapySDR/bin/
 
 $SOAPY_UHD_SOURCES="$CS_SOURCES/SoapyUHD"
 if (-not ($SOAPY_UHD_SOURCES | Test-Path)) {
-    git clone --depth 1 https://github.com/pothosware/SoapyUHD $SOAPY_UHD_SOURCES
+    Get-PinnedSource https://github.com/pothosware/SoapyUHD $SOAPY_UHD_SOURCES
 }
 
 $SOAPY_UHD_TARGET="$CS_TARGET/SoapyUHD"
