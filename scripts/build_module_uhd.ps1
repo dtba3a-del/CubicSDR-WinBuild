@@ -7,6 +7,8 @@ $UHD_TARGET="$CS_TARGET/uhd"
 $UHD_INSTALL="$CS_INSTALL/uhd"
 if (-not ($UHD_TARGET | Test-Path)) {
     $null=New-Item $UHD_TARGET -ItemType Directory
+    Add-MissingInclude "$UHD_SOURCES/host" 'std::chrono|chrono_literals' '#include <chrono>'
+    Add-MissingInclude "$UHD_SOURCES/host/lib/transport" 'struct timeval|timeval tv' '#include <winsock2.h>'
     $UHD_PYTHON=(Get-Command python).Source
     & $UHD_PYTHON -m pip install mako
     cmake -B $UHD_TARGET -G $CS_GENERATOR -A $CS_BUILD_ARCH $UHD_SOURCES/host `

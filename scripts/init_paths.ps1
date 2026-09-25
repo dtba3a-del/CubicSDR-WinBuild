@@ -36,3 +36,16 @@ function Get-PinnedSource([string]$url, [string]$dir) {
     $rev = git -C $dir rev-list -1 --before="$CS_PIN_DATE" HEAD
     if ($rev) { git -C $dir -c advice.detachedHead=false checkout $rev }
 }
+
+# Current MSVC STL no longer pulls <chrono> in transitively; older upstream
+# sources that rely on it get the include prepended (C++ files only).
+function Add-MissingInclude([string]$dir, [string]$pattern, [string]$include) {
+    Get-ChildItem -Path $dir -Recurse -File -Include *.cpp,*.cc,*.hpp,*.h |
+        Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' } |
+        ForEach-Object {
+            $text = [IO.File]::ReadAllText($_.FullName)
+            if ($text -match $pattern -and -not $text.Contains($include)) {
+                [IO.File]::WriteAllText($_.FullName, "$include`n$text")
+            }
+        }
+}
