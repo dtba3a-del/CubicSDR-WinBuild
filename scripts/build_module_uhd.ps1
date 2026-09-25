@@ -7,10 +7,12 @@ $UHD_TARGET="$CS_TARGET/uhd"
 $UHD_INSTALL="$CS_INSTALL/uhd"
 if (-not ($UHD_TARGET | Test-Path)) {
     $null=New-Item $UHD_TARGET -ItemType Directory
-    pip install mako
+    $UHD_PYTHON=(Get-Command python).Source
+    & $UHD_PYTHON -m pip install mako
     cmake -B $UHD_TARGET -G $CS_GENERATOR -A $CS_BUILD_ARCH $UHD_SOURCES/host `
         -DBoost_INCLUDE_DIR:PATH="$BOOST_INCLUDE_DIR" `
         -DCMAKE_INSTALL_PREFIX="$UHD_INSTALL" `
+        -DPYTHON_EXECUTABLE:FILEPATH="$UHD_PYTHON" `
         -DLIBUSB_INCLUDE_DIRS:PATH="$LIBUSB_INCLUDE_DIR" `
         -DLIBUSB_LIBRARIES:PATH="$LIBUSB_LIBRARIES" `
         -DENABLE_PYTHON_API=OFF `
