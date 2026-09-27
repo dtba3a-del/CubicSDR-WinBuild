@@ -29,7 +29,10 @@ $SZ_CMD="$SZ_PATH\7z.exe"
 Write-Host "`t7-Zip Path: $SZ_CMD"
 # Upstream module repos are cloned at the last commit before this date, so the
 # build scripts keep working as those projects change (override with CS_PIN_DATE).
-$CS_PIN_DATE = if ($env:CS_PIN_DATE) { $env:CS_PIN_DATE } else { "2024-04-12" }
+# Explicit midnight UTC: a bare date is read by git as that date at the
+# *current time of day*, so a commit made later that day (SoapyAirspy 821e5c3,
+# 2024-04-12 16:39) was in or out of the pin depending on when the build ran.
+$CS_PIN_DATE = if ($env:CS_PIN_DATE) { $env:CS_PIN_DATE } else { "2024-04-12T00:00:00Z" }
 Write-Host "`tSource pin date: $CS_PIN_DATE"
 function Get-PinnedSource([string]$url, [string]$dir) {
     git clone --filter=blob:none $url $dir
